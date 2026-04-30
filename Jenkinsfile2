@@ -2,21 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Code') {
+        stage('Build') {
             steps {
-                git 'https://github.com/vaibhavifale0-create/CI-CD-pipeline-with-jenkins.git'
+                bat 'mvn clean install'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Run App') {
             steps {
-                bat 'npm install'   // use sh for Linux
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                bat 'npm start'
+                bat 'start /B mvn spring-boot:run'
             }
         }
     }
